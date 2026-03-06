@@ -38,6 +38,7 @@ def gpa_color(gpa):
         return PatternFill(start_color="FFCC99", end_color="FFCC99", fill_type="solid")
     else:
         return PatternFill(start_color="FF9999", end_color="FF9999", fill_type="solid")
+
 #Getting the weighted grade points
 gp_list = []
 remark_list = []
@@ -77,7 +78,7 @@ groups = df.groupby("Matric No")
 matric_block = "nil"
 gpa_dict = {}
 
-with pd.ExcelWriter("transcripts.xlsx", engine="openpyxl") as writer:
+with pd.ExcelWriter("/home/ceugbo/Documents/transcripts.xlsx", engine="openpyxl") as writer:
     for matric, group in groups:
         if matric_block == matric:
             continue
@@ -148,6 +149,7 @@ with pd.ExcelWriter("transcripts.xlsx", engine="openpyxl") as writer:
 # print(df["Name"].dtype)
 # for col in df.columns:
     # print(repr(col))
+
 df["Course"] = df["Course"].str.strip()
 group_course = df.groupby("Course")
 
