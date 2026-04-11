@@ -36,21 +36,21 @@ y1 = np.array([55, 60, 62, 70, 70, 75, 78, 78, 80, 82, 85])
 x2 = np.array([0, 1, 2, 2, 3, 4, 5, 6, 7, 8, 8])
 y2 = np.array([50, 58, 65, 70, 72, 78, 83, 88, 92, 95, 97])
 
-def scatterplot(x1, y1, x2, y2):
-    plt.scatter(x1, y1, color="#fa0202",
+def scatterplot(x1, y1, colour, filename, x_label, y_label, plot_labels, plot_title):
+    plt.scatter(x1, y1, color=colour,
                 s = 60,
-                label="Class A")
+                label=plot_labels)
 
-    plt.scatter(x2, y2, color="#fcbf49",
-                s = 60,
-                label="Class B")
+    # plt.scatter(x2, y2, color="#fcbf49",
+    #             s = 60,
+    #             label="Class B")
 
-    plt.title("Test Scores", fontsize=20, fontweight="bold", color="#4248ff")
-    plt.xlabel("Hour Studied", fontweight="bold", color="#2dbefc")
-    plt.ylabel("Scores Obtained", fontweight="bold", color="#2dbefc")
+    plt.title(plot_title, fontsize=20, fontweight="bold", color="#4248ff")
+    plt.xlabel(x_label, fontweight="bold", color="#2dbefc")
+    plt.ylabel(y_label, fontweight="bold", color="#2dbefc")
 
     plt.legend()
-    plt.show()
+    plt.savefig(filename)
 # scatterplot(x1, y1, x2, y2)
 
 
@@ -140,4 +140,5 @@ scatterplot(axs[1, 0], x1, y1, x2, y2)
 histogram(axs[1, 1], scores)
 
 figure.tight_layout()
-figure.savefig("subplots.png")
+plt.show()
+# figure.savefig("subplots.png")

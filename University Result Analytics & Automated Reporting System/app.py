@@ -1,6 +1,8 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from openpyxl.styles import Font, Alignment, PatternFill
 from openpyxl.utils import get_column_letter
+from plt1 import LinePlot, BarChart
 
 df = pd.read_excel("raw_results.xlsx")
 df = df.dropna(subset="Name")
@@ -78,7 +80,7 @@ groups = df.groupby("Matric No")
 matric_block = "nil"
 gpa_dict = {}
 
-with pd.ExcelWriter("/home/ceugbo/Documents/transcripts.xlsx", engine="openpyxl") as writer:
+with pd.ExcelWriter("transcripts.xlsx", engine="openpyxl") as writer:
     for matric, group in groups:
         if matric_block == matric:
             continue
@@ -160,12 +162,19 @@ for course in df["Course"]:
     course_score_list = course_score["Score"].to_list()
     course_score_dict[course] = course_score_list
 
-print("Note the pass percentage of each course below:")
+course_plot = []
+course_percent_plot = []
 for course in course_score_dict:
     values = course_score_dict.get(course)
     len_values = len(values)
     above_50 = [value for value in values if value > 49]
     len_above_50 = len(above_50)
-    print(f"{course} {round((len_above_50/len_values) * 100, 2)}")
+    course_plot.append(course)
+    course_percent_plot.append(round((len_above_50/len_values) * 100, 2))
+    # print(f"{course} {round((len_above_50/len_values) * 100, 2)}")
 
+# LinePlot(course_plot, course_percent_plot, "green", "Course", "Pass Rate (%)", "course_pass_rate", "Course Pass Rate")
+BarChart(course_plot, course_percent_plot, "green", "Course", "Pass Rate (%)", "course_pass_rate_bar", "Course Pass Rate")
+
+print("Note that the pass percentage of each course has been exported as a line plot")
 print("\nResults have been processed and saved as transcripts.xlsx")
